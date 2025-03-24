@@ -70,7 +70,7 @@ class Person {
 
     // Setter for 'age'
     public void setAge(int age) {
-        this.age = Math.max(age, 1); // Ensure age is non-negative or zero
+        this.age = (age > 0) ? age : -1; // If age is ≤ 0, set to -1 (Unknown)
     }
 
     // Getter for 'gender'
@@ -111,12 +111,15 @@ class Person {
     // Override toString() for better output
     @Override
     public String toString() {
-        return "Person{name= '" + name + "', age= " + age + ", gender= '" + gender + "'}";
+        String ageString = (age == -1) ? "Unknown" : String.valueOf(age);
+        return "Person{name = '" + name + "', age = " + ageString + ", gender = '" + gender + "'}";
     }
 
     // Method to provide a greeting
     public String greet() {
-        return "Hello, my name is " + name + "! " + "I am " + age + " years old. My hobby is " + hobby + ".";
+        // to print the age to unknown if the age is negative or zero
+        String ageString = (age == -1) ? "Unknown" : age + " years old";
+        return "Hello, my name is " + name + "! I am " + ageString + ". My hobby is " + hobby + ".";
     }
 
     // Method to provide the introduction
@@ -138,6 +141,9 @@ class Person {
             pronoun = "their";
             call = "they";
         }
-        return "This is my friend. " + pronoun + " name is " + name + ". " + call + " is " + age + " years old. " + pronoun + " hobby is " + hobby + ".";
+        // to print the age to unknown if the age is negative or zero
+        String ageString = (age == -1) ? "Unknown" : age + " years old";
+        return "This is my friend. " + pronoun + " name is " + name + ". " + call +
+                " is " + ageString + ". " + pronoun + " hobby is " + hobby + ".";
     }
 }
